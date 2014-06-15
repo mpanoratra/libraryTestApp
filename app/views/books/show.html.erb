@@ -6,8 +6,12 @@
 </p>
 
 <p>
+  <strong>Author:</strong>
+  <%= @book.author.name unless @book.author.blank? %>
+</p>
+<p>
   <strong>Genre:</strong>
-  <%= @book.genre_id %>
+  <%= @book.genre.name unless @book.genre.blank? %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
