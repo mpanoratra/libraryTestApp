@@ -64,10 +64,8 @@ class BooksController < ApplicationController
   def checkout
     @book = Book.find(params[:id])
 
-    if @book.quantity > 0
-      @book.quantity -= 1
-      @book.checkout_ct += 1
-      @book.save
+    if @book.can_checkout?
+      @book.checkout
       redirect_to book_path
     else
       # not enough to checkout
