@@ -25,7 +25,6 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-    @book.checkout_ct = 0 unless @book.quantity.blank?
 
     respond_to do |format|
       if @book.save
