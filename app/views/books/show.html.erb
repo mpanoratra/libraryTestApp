@@ -13,6 +13,11 @@
   <strong>Genre:</strong>
   <%= @book.genre.name unless @book.genre.blank? %>
 </p>
+<p>
+  <strong>Quantity Available:</strong>
+  <%= @book.quantity unless @book.quantity.blank? %>
+</p>
 
+<%= button_to "Checkout", { action: "checkout", id: @book.id }, method: :get %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
