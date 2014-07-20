@@ -72,6 +72,8 @@ class BooksController < ApplicationController
     else
       # not enough to checkout
       # render some message
+      flash[:error] = "That book is not in stock right now, try again later."
+      redirect_to @book
     end
   end
 
