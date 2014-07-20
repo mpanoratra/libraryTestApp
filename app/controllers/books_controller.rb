@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /books/1
@@ -64,14 +64,14 @@ class BooksController < ApplicationController
   def checkout
     @book = Book.find(params[:id])
 
-    if @book.quantity > 0
-      @book.quantity -= 1
-      @book.checkout_ct += 1
-      @book.save
-      redirect_to book_path
+    if @book.can_checkout?
+      @book.checkout
+      redirect_to @book
     else
       # not enough to checkout
       # render some message
+      flash[:error] = "That book is not in stock right now, try again later."
+      redirect_to @book
     end
   end
 
