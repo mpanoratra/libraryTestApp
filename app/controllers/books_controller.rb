@@ -25,6 +25,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
+    @book.checkout_ct = 0 unless @book.quantity.blank?
 
     respond_to do |format|
       if @book.save
@@ -61,6 +62,20 @@ class BooksController < ApplicationController
     end
   end
 
+  def checkout
+    @book = Book.find(params[:id])
+
+    if @book.quantity > 0
+      @book.quantity -= 1
+      @book.checkout_ct += 1
+      @book.save
+      redirect_to book_path
+    else
+      # not enough to checkout
+      # render some message
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -69,6 +84,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:name, :genre_id, :author_id, :quantity)
+      params.require(:book).permit(:name, :genre_id, :author_id, :quantity, :checkout_ct)
     end
 end

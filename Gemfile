@@ -7,6 +7,7 @@ gem 'rails', '4.1.1'
 gem 'pg'
 gem 'devise'
 gem 'seed_dump'
+gem 'angularjs-rails'
 
 
 # Use SCSS for stylesheets
