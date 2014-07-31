@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
   belongs_to :author
   belongs_to :genre
+  belongs_to :order
 
   validates :name, presence: :true
   validates :quantity, presence: :true
